@@ -2,7 +2,7 @@
 //  GameViewController.swift
 //  FinalProjectTwinstick
 //
-//  Created by Cushing, Arron C on 12/2/20.
+//  Created by Cushing, Arron C on 11/30/20.
 //
 
 import UIKit
@@ -34,7 +34,7 @@ class GameViewController: UIViewController {
     override var shouldAutorotate: Bool {
         return true
     }
-
+    
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == .phone {
             return .allButUpsideDown
@@ -46,4 +46,5 @@ class GameViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return true
     }
+    
 }

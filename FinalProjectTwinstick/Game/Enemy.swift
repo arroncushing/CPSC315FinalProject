@@ -25,6 +25,11 @@ class Enemy : SKSpriteNode {
         fatalError("error in initializing enemy")
     }
     
+    /**
+     Determines the logic for an enemy to chase the player
+     
+     - Parameters: player - the player to chase
+     */
     func chasePlayer(_ player: Player) {
         let point = player.position
         let dx = point.x - self.position.x

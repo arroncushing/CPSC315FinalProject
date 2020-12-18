@@ -63,6 +63,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     }
     
+     /**
+     Loads the player to the screen
+     */
     func loadPlayer() {
         player.position.x = size.width / 2
         player.position.y = size.height / 2
@@ -77,6 +80,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(player)
     }
 
+     /**
+     Loads the control sticks to the screen
+     */
     func loadControlSticks() {
         cameraNode.addChild(leftControllerBase)
         leftControllerBase.position.x = -400
@@ -102,7 +108,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         rightControlStick.zPosition = 10
         rightControlStick.size = CGSize(width: 60, height: 60)
     }
-    
+
+     /**
+     Initializes three enemies to the game
+     */
     func initializeEnemies() {
         
         for _ in 1...3 {
@@ -120,6 +129,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+     /**
+     Resets the control sticks
+     */
     func resetControlSticks() {
         leftControllerBase.removeFromParent()
         leftControlStick.removeFromParent()
@@ -128,6 +140,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         loadControlSticks()
     }
     
+     /**
+     Loads the score and health labels
+     */
     func loadLabels() {
         healthLabel.text = "Health: \(player.currentHealth)/\(player.maxHealth)"
         healthLabel.fontName = "AvenirNext-Bold"
@@ -169,6 +184,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+     /**
+     Loads the game walls
+     */
     func initializeWalls(){
         let horizontalBarrier = SKTexture(imageNamed: "horizontalrockborder")
         let verticalBarrier = SKTexture(imageNamed: "verticalrockborder")
@@ -206,6 +224,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(rightBarrier)
     }
     
+     /**
+     Handles the enemies and removes them if they have been defeated
+     */
     func handleEnemies() {
         var index: Int = 0
         for enemy in enemies {
@@ -220,6 +241,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    /**
+     Updates the health and score labels to match the current game state
+     */
     func updateLabels() {
         cameraNode.removeChildren(in: [scoreLabel, healthLabel])
         healthLabel.text = "Health: \(player.currentHealth)/\(player.maxHealth)"
@@ -228,6 +252,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         cameraNode.addChild(scoreLabel)
     }
     
+    /**
+     Selects a random position off camera to spawn an enemy to
+     
+     - Returns: A point that is not currently in the camera
+     */
     func selectRandomPositionOffCamera() -> CGPoint{
         var randX = 0
         var randY = 0
@@ -247,6 +276,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         return CGPoint(x: randX, y: randY)
     }
     
+    /**
+     Handles the end of the game
+     */
     func gameOver() {
         let menuScene = MenuScene(size: size, score: enemiesDefeated)
         let transition = SKTransition.doorway(withDuration: 1)
@@ -283,11 +315,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    /**
+     Sets up the timer that spawns enemies
+     */
     func setupTimer(){
         timer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true, block: { (timer) in self.generateEnemy()})
         
     }
     
+    /**
+     Generates an enemy at a random position
+     */
     func generateEnemy(){
         let enemy = Enemy()
         enemy.position = selectRandomPositionOffCamera()
@@ -321,7 +359,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(enemy)
     }
     
-    
+    /**
+     Launches an attack from the player,s current position at the angle of the right joystick
+     */
     func launchAttack() {
         let projectile = SKSpriteNode(imageNamed: "PlayerProjectile")
         self.addChild(projectile)

@@ -42,6 +42,15 @@ extension GameScene {
         }
     }
     
+    /**
+     Handles the joystick motion
+     
+     - Parameters: 
+         - joystick - the joystick to move
+         - base - the base of the joystick to move
+         - location: the location where the player touched
+     - Returns: the angle the joystick is in
+     */
     func handleJoystickMotion(_ joystick: SKSpriteNode, _ base: SKSpriteNode, _ location: CGPoint) -> CGFloat{
         
         let dx = location.x - base.position.x
@@ -74,6 +83,13 @@ extension GameScene {
         }
     }
     
+    /**
+     Handles the player no longer touching the screen
+     
+     - Parameters: 
+        - joystick: the joystick that was moved
+        - base: the base of the joystick that was moved
+     */
     func handleTouchEnd(_ joystick: SKSpriteNode, _ base: SKSpriteNode) {
         let returnAction = SKAction.move(to: base.position, duration: 0.2)
         returnAction.timingMode = .easeOut
